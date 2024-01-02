@@ -17,15 +17,16 @@ make -j $(nproc --all) -k CC="ccache clang" O=out CROSS_COMPILE=aarch64-linux-gn
 make -j $(nproc --all) -C AnyKernel3 clean
 
 if [ "$?" == 0 ]; then
+   cp $(pwd)/out/arch/arm64/boot/Image $(pwd)/AnyKernel3
    cp $(pwd)/out/arch/arm64/boot/Image.gz-dtb $(pwd)/AnyKernel3
    cp $(pwd)/out/arch/arm64/boot/dtbo.img $(pwd)/AnyKernel3
    cp $(pwd)/out/arch/arm64/boot/dtb.img $(pwd)/AnyKernel3
    cd $(pwd)/AnyKernel3
    make -j $(nproc --all)
-   zipname=$(ls *.zip)
-   url=$(curl --upload-file ./${zipname} https://transfer.sh/${zipname})
-   echo -e "\nKernel Url:"
-   echo "${url}"
-   echo -e "\n"
-   cd ..
+   # zipname=$(ls *.zip)
+   # url=$(curl --upload-file ./${zipname} https://transfer.sh/${zipname})
+   # echo -e "\nKernel Url:"
+   # echo "${url}"
+   # echo -e "\n"
+   # cd ..
 fi
