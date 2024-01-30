@@ -61,7 +61,6 @@ static long new_faccessat(int dfd, const char __user *filename, int mode)
 	return old_faccessat(dfd, sh_user_path(), mode);
 }
 
-extern int selinux_enforcing;
 static long (*old_execve)(const char __user *filename,
 			  const char __user *const __user *argv,
 			  const char __user *const __user *envp);
@@ -82,7 +81,6 @@ static long new_execve(const char __user *filename,
 	 * current task, but that requires slightly more thought than
 	 * just axing the whole thing here.
 	 */
-	selinux_enforcing = 0;
 
 	/* Rather than the usual commit_creds(prepare_kernel_cred(NULL)) idiom,
 	 * we manually zero out the fields in our existing one, so that we
